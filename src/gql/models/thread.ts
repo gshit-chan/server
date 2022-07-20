@@ -1,4 +1,12 @@
-import { Field, ObjectType } from 'type-graphql'
+import { Field, ObjectType, registerEnumType } from 'type-graphql'
+
+export enum Chats {
+	GLOBAL = 'GLOBAL',
+}
+
+registerEnumType(Chats, {
+	name: 'Chats',
+})
 
 @ObjectType()
 export class Thread {
@@ -6,19 +14,16 @@ export class Thread {
 	id: string
 
 	@Field()
-	userHash: string
-
-	@Field(() => String, { nullable: true })
-	username?: string
+	title: string
 
 	@Field()
 	message: string
 
-	@Field(() => String, { nullable: true })
-	parentId?: string
+	@Field(() => Chats)
+	chat: Chats
 
-	@Field(() => Thread, { nullable: true })
-	parent?: Thread
+	@Field(() => String, { nullable: true })
+	username?: string
 
 	@Field(() => [Thread])
 	comments: Thread[]

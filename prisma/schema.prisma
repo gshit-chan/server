@@ -10,14 +10,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Chats {
+  GLOBAL
+}
+
 model Thread {
-  id        String   @id @default(uuid())
-  userHash  String
-  username  String?
+  id        String    @id @default(uuid())
+  chat      Chats     @default(GLOBAL)
+  title     String
   message   String
+  username  String?
+  comments  Comment[]
+  updatedAt DateTime  @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  message   String
+  threadId  String
+  thread    Thread    @relation(fields: [threadId], references: [id])
   parentId  String?
-  parent    Thread?  @relation("CommentSection", fields: [parentId], references: [id])
-  comments  Thread[] @relation("CommentSection")
-  updatedAt DateTime @default(now()) @updatedAt
-  createdAt DateTime @default(now())
+  parent    Comment?  @relation("CommentSection", fields: [parentId], references: [id])
+  comments  Comment[] @relation("CommentSection")
+  updatedAt DateTime  @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
 }
