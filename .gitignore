@@ -2,3 +2,15 @@ node_modules
 .env
 dist
 yarn.lock
+
+
+# Added by cargo
+
+/target
+
+
+# Added by cargo
+#
+# already existing elements were commented out
+
+#/target

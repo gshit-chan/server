@@ -1,0 +1,21 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+members = [".", "entity", "migration"]
+
+[dependencies]
+dotenv = "0.15.0"
+axum = "0.5.13"
+async-graphql-axum = "4.0.5"
+tokio = { version = "1.20.1", features = ["full"] }
+entity = { path = "entity" }
+migration = { path = "migration" }
+sea-orm = { version = "0.9.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros"] }
+async-graphql = "4.0.5"
+serde = { version = "1.0.140", features = ["derive"] }
+chrono = "0.4.19"
