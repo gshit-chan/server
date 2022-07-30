@@ -12,7 +12,7 @@ pub struct ThreadMutation;
 struct CreateThreadInput {
 	title: String,
 	message: String,
-	chat: String,
+	chat: Chats,
 	username: Option<String>,
 }
 
@@ -31,8 +31,7 @@ impl ThreadMutation {
 		let model = thread::ActiveModel {
 			title: Set(data.title),
 			message: Set(data.message),
-			// TODO: fix this enum problem
-			chat: Set(Chats::Global),
+			chat: Set(data.chat),
 			username: Set(data.username),
 			// sea-orm still doesn't support `created_at` and `updated_at` fields
 			created_at: Set(now),

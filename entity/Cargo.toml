@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 sea-orm = { version = "0.9.1", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros"] }
+async-graphql = "4.0.5"
+serde = { version = "1.0.140", features = ["derive"] }

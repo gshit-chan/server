@@ -7,7 +7,7 @@ use super::comment_model::CommentResponse;
 #[derive(SimpleObject, Serialize, Deserialize)]
 pub struct ThreadResponse {
 	id: i32,
-	chat: String,
+	chat: Chats,
 	title: String,
 	message: String,
 	username: Option<String>,
@@ -20,9 +20,7 @@ impl ThreadResponse {
 	pub fn from_model(data: (thread::Model, Vec<comment::Model>)) -> Self {
 		Self {
 			id: data.0.id,
-			chat: match data.0.chat {
-				Chats::Global => "GLOBAL".to_string(),
-			},
+			chat: data.0.chat,
 			title: data.0.title,
 			message: data.0.message,
 			username: data.0.username,
